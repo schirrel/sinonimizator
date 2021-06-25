@@ -8,36 +8,42 @@ export default Vue.component("sinonimizator-app", {
       respostaTexto: "",
       respostaPalavra: "",
       loading: false,
-      customColorOptions : {
+      customColorOptions: {
         keyColor: 'green; font-weight: bold',
         numberColor: 'red',
         stringColor: 'purple',
         trueColor: '#00cc00',
         falseColor: '#ff8080',
         nullColor: 'cornflowerblue'
-    }
+      }
     };
   },
   methods: {
     limparResultador() {
-
       this.respostaPalavra = "";
       this.respostaTexto = "";
     },
     async sinonimizarPalavra() {
-      this.limparResultador();
-      this.loading = true;
-      this.respostaPalavra = jsonFormatHighlight(await request({ palavra: this.palavra }), this.customColorOptions);
-      this.loading = false;
+      gtag('event', 'click', {
+        'event_category': 'sinonimizarPalavra'
+      });
+      this.respostaPalavra = await this.fazerRequisicao({ palavra: this.palavra });
 
     },
     async sinonimizarTexto() {
+      gtag('event', 'click', {
+        'event_category': 'sinonimizarTexto'
+      });
+
+      this.respostaTexto = await this.fazerRequisicao({ texto: this.texto });
+    },
+    async fazerRequisicao(parametros) {
       this.limparResultador();
       this.loading = true;
-      this.respostaTexto = jsonFormatHighlight(await request({ texto: this.texto }), this.customColorOptions);
+      let resposta = jsonFormatHighlight(await request(parametros), this.customColorOptions);
       this.loading = false;
-
-    }
+      return resposta;
+    },
   },
   template: `
 	<main id="app" class="content ">
@@ -46,6 +52,7 @@ export default Vue.component("sinonimizator-app", {
   <div class="spinner-border text-light" role="status">
   </div>
 </div>
+<section class="sinonimizator">
    <div class="row gx-5">
       <div class="col-6">
          <section class="p-5 rounded-3">
@@ -71,6 +78,11 @@ export default Vue.component("sinonimizator-app", {
       <pre><code v-html="respostaTexto" id="text-json" class="json"></code></pre>
       </div>
    </div>
+</section>
+   <footer class="p-2 text-center text-light bg-dark">
+  Desenvolvido por @schirrel, com grande agradecimento a plataforma <a class="text-light" href="https://www.sinonimos.com.br/">www.sinonimos.com.br/</a>
+  </footer>
+
 </main>
   `
 });

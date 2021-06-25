@@ -7,7 +7,9 @@ Precisa de sinonimos? Sinoniminiza!
 [Acesse](https://schirrel.dev/sinonimizator/index.html)
 
 Este é um projeto sem fins lucrativos com intuito de acelerar suas pesquisas, que utiliza do [sinonimos.com.br/](https://www.sinonimos.com.br/)  para obter as informações, um imenso agradecimento à empresa @7Graus pela pela plataforma.
+
 ____
+
 ### Tecnologias
 #### App
 - [Vue.js](https://github.com/vuejs/vue)
