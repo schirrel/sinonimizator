@@ -18,13 +18,14 @@
      padding: 0;
  }
  
- .json-response {
-     max-height: 50vh;
-     overflow-y: scroll;
+ .sinonimos-response {
+     max-height: 75vh;
+     margin: 0;
+     overflow-y: auto;
  }
  
  .sinonimizator {
-     min-height: calc(100vh - 104px)
+     max-height: calc(100vh - 104px)
  }
  
  h1>small {
@@ -34,6 +35,13 @@
  section>.btn {
      display: flex;
      margin-left: auto;
+ }
+ 
+ .btn-group.modo-visualizacao {
+     display: flex;
+     width: 50px;
+     margin-left: auto;
+     margin-right: 100px;
  }
  
  .pace {

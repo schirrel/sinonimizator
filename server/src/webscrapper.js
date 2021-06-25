@@ -6,7 +6,7 @@ require('./polyfill');
 
 var iso88592 = require('iso-8859-2');
 
-const requisitarPagina = async (palavra) => {
+const requisitarPagina = async(palavra) => {
     try {
         const response = await axios.request({
             method: 'GET',
@@ -28,11 +28,11 @@ const requisitarPagina = async (palavra) => {
             resolve(sinonimos.flat(Infinity))
         })
     } catch (err) {
-        console.log("------ ERRO DE REQUISIÇÃO COM A PALAVRA "+palavra+" ----")
+        console.log("------ ERRO DE REQUISIÇÃO COM A PALAVRA " + palavra + " ----")
     }
 }
 
-const sinonimosPorPalavra = async (palavra) => {
+const sinonimosPorPalavra = async(palavra) => {
     let sinonimos = await requisitarPagina(palavra) || []
     return {
         palavra,
@@ -40,16 +40,20 @@ const sinonimosPorPalavra = async (palavra) => {
     }
 }
 
-const removerCaracteres =(sentenca) => {
-    sentenca=  sentenca.replace(/\(/g, "");
-    sentenca=  sentenca.replace(/\)/g, "");
-    sentenca=  sentenca.replace(/,/g, "");
-    sentenca= sentenca.replace(/\./g, "");
-    sentenca=  sentenca.replace(/:/g, "");
+const removerCaracteres = (sentenca) => {
+    sentenca = sentenca.replace(/\(/g, "");
+    sentenca = sentenca.replace(/\)/g, "");
+    sentenca = sentenca.replace(/,/g, "");
+    sentenca = sentenca.replace(/\./g, "");
+    sentenca = sentenca.replace(/:/g, "");
+    sentenca = sentenca.replace(/\r?\n|\r/g, " ");
+    sentenca = sentenca.replace(/\r?\t|\r/g, " ");
+
+
     return sentenca;
 }
 
-const texto = async (sentenca) => {
+const texto = async(sentenca) => {
     sentenca = removerCaracteres(sentenca)
     let palavras = sentenca.split(" ").filter(palavra => palavra.length > 1)
     const promises = await palavras.map(async palavra => {
@@ -57,10 +61,11 @@ const texto = async (sentenca) => {
     })
     return await Promise.all(promises);
 }
-const palavra = async (palavra) => {
+const palavra = async(palavra) => {
     return await sinonimosPorPalavra(palavra);
 }
 
 module.exports = {
-    texto, palavra
+    texto,
+    palavra
 }
