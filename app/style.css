@@ -1,17 +1,14 @@
- html {
-     min-width: 99vw;
-     min-height: 99vh;
-     overflow-x: hidden;
-     overflow-y: auto;
+ * {
+     box-sizing: border-box;
  }
  
- main {
-     width: 100%;
-     height: 100%;
- }
- 
- body,
  html,
+ body {
+     height: 100%;
+     margin: 0;
+     padding: 0;
+ }
+ 
  h1,
  main {
      margin: 0;
@@ -37,11 +34,29 @@
      margin-left: auto;
  }
  
+ footer {
+     height: 40px;
+ }
+ 
+ header {
+     height: 60px;
+ }
+ 
+ main {
+     height: calc(100% - 100px);
+ }
+ 
  .btn-group.modo-visualizacao {
      display: flex;
      width: 50px;
      margin-left: auto;
      margin-right: 100px;
+ }
+ 
+ main,
+ section {
+     display: block;
+     position: relative;
  }
  
  .pace {

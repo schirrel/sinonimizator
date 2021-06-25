@@ -85,9 +85,6 @@ export default Vue.component("sinonimizator-app", {
           </div>
        </div>
     </section>
-    <footer class="p-2 text-center text-light bg-dark">
-       Desenvolvido por @schirrel, com grande agradecimento a plataforma <a class="text-light" href="https://www.sinonimos.com.br/">www.sinonimos.com.br/</a>
-    </footer>
  </main> 
 
   `
