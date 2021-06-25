@@ -40,7 +40,17 @@ const sinonimosPorPalavra = async (palavra) => {
     }
 }
 
+const removerCaracteres =(sentenca) => {
+    sentenca=  sentenca.replace(/\(/g, "");
+    sentenca=  sentenca.replace(/\)/g, "");
+    sentenca=  sentenca.replace(/,/g, "");
+    sentenca= sentenca.replace(/\./g, "");
+    sentenca=  sentenca.replace(/:/g, "");
+    return sentenca;
+}
+
 const texto = async (sentenca) => {
+    sentenca = removerCaracteres(sentenca)
     let palavras = sentenca.split(" ").filter(palavra => palavra.length > 1)
     const promises = await palavras.map(async palavra => {
         return await sinonimosPorPalavra(palavra);
