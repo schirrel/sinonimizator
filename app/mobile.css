@@ -1,0 +1,14 @@
+@media(max-width: 768px) {
+    footer {
+        font-size: 10px;
+    }
+    .sinonimizator__content {
+        --bs-gutter-x: 0;
+        min-height: calc(100vh - 140px);
+        display: block;
+    }
+    .visualizacao {
+        max-height: 45vh;
+        overflow-y: scroll;
+    }
+}

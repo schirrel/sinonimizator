@@ -1,3 +1,4 @@
+ @import url("./mobile.css");
  * {
      box-sizing: border-box;
  }
@@ -15,14 +16,9 @@
      padding: 0;
  }
  
- .sinonimos-response {
-     max-height: 75vh;
-     margin: 0;
-     overflow-y: auto;
- }
- 
  .sinonimizator {
-     max-height: calc(100vh - 104px)
+     padding: 8px;
+     max-height: calc(100vh - 104px);
  }
  
  h1>small {
@@ -57,6 +53,14 @@
  section {
      display: block;
      position: relative;
+ }
+ 
+ @media(min-width: 768px) {
+     .visualizacao {
+         max-height: 75vh;
+         margin: 0;
+         overflow-y: auto;
+     }
  }
  
  .pace {

@@ -38,7 +38,8 @@ export default Vue.component("sinonimizator-app", {
             this.resultadoFormatado = "";
             this.resultado = []
             this.loading = true;
-            this.resultado = await request(parametros);
+            const resultado = await request(parametros);
+            this.resultado = resultado instanceof Array ? resultado : [resultado];
             this.resultadoFormatado = jsonFormatHighlight(this.resultado, this.customColorOptions);
             this.loading = false;
         },
@@ -49,28 +50,29 @@ export default Vue.component("sinonimizator-app", {
        <div class="spinner-border text-light" role="status">
        </div>
     </div>
-    <section class="content p-4  sinonimizator">
-       <div class="btn-group modo-visualizacao" role="group">
-          <input type="radio" class="btn-check" v-model="modoVisualizacao" name="modoVisualizacao" id="opcaoTexto" autocomplete="off" :value="true">
-          <label class="btn btn-secondary" for="opcaoTexto">Texto</label>
-          <input type="radio" class="btn-check" v-model="modoVisualizacao"  name="modoVisualizacao" id="opcaoJSON" autocomplete="off" :value="false">
-          <label class="btn btn-secondary" for="opcaoJSON">JSON</label>
-       </div>
-       <div class="row gx-5">
+    <section class="content sinonimizator">
+
+       <div class="sinonimizator__content row">
           <div class="col-12 col-sm-6">
              <section class="px-5 rounded-3">
                 <h2>Sinonimize uma palavra</h2>
                 <input type="text" class="form-control" v-model="palavra" />
                 <button class="align-self-end my-4 btn btn-warning" type="button" @click="sinonimizarPalavra"> Sinonimizar</button>
              </section>
-             <section class="p-5 rounded-3">
+             <section class="px-5 rounded-3">
                 <h2>Sinonimize um texto</h2>
                 <textarea rows="5" class="form-control" v-model="texto"/>
                 <button class="my-4 btn btn-warning" type="button" @click="sinonimizarTexto"> Sinonimizar</button>
              </section>
           </div>
-          <div class="col-6 sinonimos-response">
-             <div class="visualizacao-texto" v-show="modoVisualizacao">
+          <div class="col-12 col-sm-6 sinonimos-response">
+          <div class="btn-group modo-visualizacao" role="group">
+          <input type="radio" class="btn-check" v-model="modoVisualizacao" name="modoVisualizacao" id="opcaoTexto" autocomplete="off" :value="true">
+          <label class="btn btn-secondary" for="opcaoTexto">Texto</label>
+          <input type="radio" class="btn-check" v-model="modoVisualizacao"  name="modoVisualizacao" id="opcaoJSON" autocomplete="off" :value="false">
+          <label class="btn btn-secondary" for="opcaoJSON">JSON</label>
+       </div>
+             <div class="visualizacao visualizacao__texto" v-show="modoVisualizacao">
                 <dl>
                    <template :key="item.palavra" v-for="item in resultado">
                       <dt>{{item.palavra}}</dt>
@@ -79,7 +81,7 @@ export default Vue.component("sinonimizator-app", {
                    </template>
                 </dl>
              </div>
-             <div class="visualizacao-json " v-show="!modoVisualizacao">
+             <div class="visualizacao visualizacao__json " v-show="!modoVisualizacao">
                 <pre><code v-html="resultadoFormatado" id="resultado-json" class="json"></code></pre>
              </div>
           </div>
