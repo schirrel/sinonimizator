@@ -19,17 +19,20 @@ export default Vue.component("sinonimizator-app", {
     };
   },
   methods: {
-    async sinonimizarPalavra() {
+    limparResultador() {
+
       this.respostaPalavra = "";
       this.respostaTexto = "";
+    },
+    async sinonimizarPalavra() {
+      this.limparResultador();
       this.loading = true;
       this.respostaPalavra = jsonFormatHighlight(await request({ palavra: this.palavra }), this.customColorOptions);
       this.loading = false;
 
     },
     async sinonimizarTexto() {
-      this.respostaPalavra = "";
-      this.respostaTexto = "";
+      this.limparResultador();
       this.loading = true;
       this.respostaTexto = jsonFormatHighlight(await request({ texto: this.texto }), this.customColorOptions);
       this.loading = false;
